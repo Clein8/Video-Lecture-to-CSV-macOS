@@ -81,20 +81,26 @@ class ViewController: NSViewController {
                         for title in row.xpath("//p") {
                             let str0 = title.text!.trimmingCharacters(in: ["\n"])
                             let str1 = str0.components(separatedBy: "_")
-                            let str2 = str1[1].components(separatedBy: "p.")
-                            let str3 = str2[0].components(separatedBy: "P.")
-                            date = str1[0].trim()
-                            name = str3[0].trim()
+                            if str1.count > 1 {
+                                let str2 = str1[1].components(separatedBy: "p.")
+                                let str3 = str2[0].components(separatedBy: "P.")
+                                date = str1[0].trim()
+                                name = str3[0].trimmingCharacters(in: ["~"]).trim()
+                            } else {
+                                name = str0.trim()
+                            }
                         }
                         for fort in row.xpath("//div") {
                             let str = fort.text!.trimmingCharacters(in: ["\n"])
-                            if str.contains("시간") {
-                                let hour = str.components(separatedBy: "시간")[0]
-                                let str1 = str.components(separatedBy: "시간")[1].components(separatedBy: "분")
-                                time = hour + ":" + String(format: "%02d", Int(str1[0])!) + ":" + String(format: "%02d", Int(str1[1].trimmingCharacters(in: ["초"]))!)
-                            } else {
-                                let str1 = str.components(separatedBy: "분")
-                                time = String(format: "%02d", Int(str1[0])!) + ":" + String(format: "%02d", Int(str1[1].trimmingCharacters(in: ["초"]))!)
+                            if str != "" {
+                                if str.contains("시간") {
+                                    let hour = str.components(separatedBy: "시간")[0]
+                                    let str1 = str.components(separatedBy: "시간")[1].components(separatedBy: "분")
+                                    time = hour + ":" + String(format: "%02d", Int(str1[0])!) + ":" + String(format: "%02d", Int(str1[1].trimmingCharacters(in: ["초"]))!)
+                                } else {
+                                    let str1 = str.components(separatedBy: "분")
+                                    time = String(format: "%02d", Int(str1[0])!) + ":" + String(format: "%02d", Int(str1[1].trimmingCharacters(in: ["초"]))!)
+                                }
                             }
                         }
                         let lecture = Lecture(idx: idex, date: date, title: name, time: time)

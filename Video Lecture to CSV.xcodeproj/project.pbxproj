@@ -53,7 +53,6 @@
 				38AD0743AB000BE14354DA65 /* Pods-Video Lecture to CSV.debug.xcconfig */,
 				9E4B2C65E06D1F781D2A4B30 /* Pods-Video Lecture to CSV.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
